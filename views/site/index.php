@@ -8,7 +8,7 @@ $this->title = 'Tpa Tu Casa';
 
     <div class="jumbotron text-center bg-transparent mt-5 mb-5">
         <h1 class="display-4">TPA TU CASA</h1>
-        <h1  class="text-danger">Mi pagina de tienda en linea!</h1>
+        <h1  class="text-danger">¡Mi pagina de tienda en linea!</h1>
         <p class="lead">You have successfully created your Yii-powered application.</p>
 
         <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>

@@ -4,10 +4,11 @@ namespace app\controllers;
 
 use app\models\Categorias;
 use app\models\CategoriasSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile;
 /**
  * CategoriasController implements the CRUD actions for Categorias model.
  */
@@ -68,17 +69,35 @@ class CategoriasController extends Controller
     public function actionCreate()
     {
         $model = new Categorias();
+        $message = '';
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_categoria' => $model->id_categoria]);
+        if($this->request->isPost){
+           $transaction = Yii::$app->db->beginTransaction();
+           try{
+            if($model->load($this->request->post())){
+                $model->imageFile = UploadedFile::getInstance($model,'imageFile');
+                if($model->save() && (!$model->imageFile || $model->upload())){
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id_categoria' => $model->id_categoria]);
+                }else{
+                    $message = 'Error al guardar la imagen';
+                    $transaction->rollBack();
+                }
+            }else{
+                $message = 'Error al cargar la imagen';
+                $transaction->rollBack();
             }
-        } else {
+           }catch (\Exception $e){
+               $transaction->rollBack();
+               $message = 'Error al guardar la categoria';
+           }
+        }else{
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
+            'message' => $message,
         ]);
     }
 
@@ -92,13 +111,19 @@ class CategoriasController extends Controller
     public function actionUpdate($id_categoria)
     {
         $model = $this->findModel($id_categoria);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_categoria' => $model->id_categoria]);
+        $message='';
+        if($this->request->isPost && $model->load($this->request->post())){
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->save() && (!$model->imageFile || $model->upload())){
+                return $this->redirect(['view', 'id_categoria' => $model->id_categoria]);
+            }else{
+                $message = 'Error al guardar la imagen';
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'mensaje' => $message,
         ]);
     }
 
@@ -111,9 +136,10 @@ class CategoriasController extends Controller
      */
     public function actionDelete($id_categoria)
     {
-        $this->findModel($id_categoria)->delete();
-
-        return $this->redirect(['index']);
+        $model = $this->findModel($id_categoria);
+        $model->deleteimagen_url();
+        $model->delete();
+         return $this->redirect(['index']);
     }
 
     /**

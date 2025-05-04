@@ -31,6 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id_categoria',
             'nombre_categoria',
+            // 'imagen_url:url',
+            [
+                'attribute' => 'portada',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return Html::img(Yii::getAlias('@web') . '/image/' . $model->imagen_url, ['width' => '100px']);
+                }
+            ],
         ],
     ]) ?>
 

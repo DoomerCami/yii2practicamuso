@@ -41,12 +41,23 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'items' => [
             ['label' => 'Inicio', 'url' => ['/site/index']],
             ['label' => 'Acerca de nosotros', 'url' => ['/site/about']],
-            ['label' => 'Usuarios', 'url' => ['/usuarios/index']],
-            ['label' => 'Categorias', 'url' => ['/categorias/index']],
-            ['label' => 'Envios', 'url' => ['/envios/index']],
-            ['label' => 'Pagos', 'url' => ['/pagos/index']],
-            ['label' => 'Pedidos', 'url' => ['/pedidos/index']],
-            ['label' => 'Productos', 'url' => ['/productos/index']],
+            //['label' => 'Usuarios', 'url' => ['/usuarios/index']],
+            //['label' => 'Categorias', 'url' => ['/categorias/index']],
+            //['label' => 'Envios', 'url' => ['/envios/index']],
+            //['label' => 'Pagos', 'url' => ['/pagos/index']],
+            //['label' => 'Pedidos', 'url' => ['/pedidos/index']],
+            // ['label' => 'Productos', 'url' => ['/productos/index']],
+            [
+                'label' => 'Gestionar Tienda online',
+                'items' => [ 
+                    [ 'label' => 'Categorias', 'url' => ['/categorias/index']],
+                    [ 'label' => 'Usuarios', 'url' => ['/usuarios/index']],
+                    [ 'label' => 'Productos', 'url' => ['/productos/index']],
+                    [ 'label' => 'Envios', 'url' => ['/envios/index']],
+                    [ 'label' => 'Pedidos', 'url' => ['/pedidos/index']],
+                    [ 'label' => 'Pagos', 'url' => ['/pagos/index']],
+                ],
+            ],
             Yii::$app->user->isGuest
                 ? ['label' => 'Iniciar sesión', 'url' => ['/site/login']]
                 : '<li class="nav-item">'

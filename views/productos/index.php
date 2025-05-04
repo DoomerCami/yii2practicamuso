@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'stock',
             //'talla',
             //'color',
-            //'id_categoria',
+            'id_categoria',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Productos $model, $key, $index, $column) {

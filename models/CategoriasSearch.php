@@ -18,7 +18,7 @@ class CategoriasSearch extends Categorias
     {
         return [
             [['id_categoria'], 'integer'],
-            [['nombre_categoria'], 'safe'],
+            [['nombre_categoria', 'imagen_url'], 'safe'],
         ];
     }
 
@@ -62,7 +62,8 @@ class CategoriasSearch extends Categorias
             'id_categoria' => $this->id_categoria,
         ]);
 
-        $query->andFilterWhere(['like', 'nombre_categoria', $this->nombre_categoria]);
+        $query->andFilterWhere(['like', 'nombre_categoria', $this->nombre_categoria])
+            ->andFilterWhere(['like', 'imagen_url', $this->imagen_url]);
 
         return $dataProvider;
     }

@@ -32,6 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_categoria',
             'nombre_categoria',
+            // 'imagen_url:url',
+            [
+                'attribute' => 'imagen_url',
+                'format' => 'html',
+                'value' => function(Categorias $model) {
+                    if ($model->imagen_url)
+                        return Html::img(Yii::getAlias('@web') . '/image/' . $model->imagen_url, ['width' => '80px']);
+                    return null;
+                }
+            ],
+
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Categorias $model, $key, $index, $column) {

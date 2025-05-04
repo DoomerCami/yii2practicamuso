@@ -14,7 +14,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_usuario')->textInput() ?>
 
-    <?= $form->field($model, 'fecha_pedido')->textInput() ?>
+    <?= $form->field($model, 'fecha_pedido')->textInput([
+    'maxlength' => true,
+    'placeholder' => 'YYYY/MM/DD HH:MM:SS',
+    'required' => true
+    ]) ?>
 
     <?= $form->field($model, 'estado')->dropDownList([ 'Pendiente' => 'Pendiente', 'Enviado' => 'Enviado', 'Entregado' => 'Entregado', 'Cancelado' => 'Cancelado', ], ['prompt' => '']) ?>
 

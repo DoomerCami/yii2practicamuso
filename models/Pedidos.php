@@ -74,7 +74,7 @@ class Pedidos extends \yii\db\ActiveRecord
      */
     public function getDetallePedidos()
     {
-        return $this->hasMany(DetallePedido::class, ['id_pedido' => 'id_pedido']);
+        return $this->hasMany(Detalle_Pedido::class, ['id_pedido' => 'id_pedido']);
     }
 
     /**

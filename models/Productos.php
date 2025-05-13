@@ -16,8 +16,9 @@ use Yii;
  * @property string|null $color
  * @property int|null $id_categoria
  *
+ *
  * @property Categorias $categoria
- * @property DetallePedido[] $detallePedidos
+ * @property Detalle_Pedido[] $detallePedidos
  */
 class Productos extends \yii\db\ActiveRecord
 {
@@ -85,11 +86,11 @@ class Productos extends \yii\db\ActiveRecord
     /**
      * Gets query for [[DetallePedidos]].
      *
-     * @return \yii\db\ActiveQuery|DetallePedidoQuery
+     * @return \yii\db\ActiveQuery|Detalle_PedidoQuery
      */
-    public function getDetallePedidos()
+    public function getDetalle_Pedidos()
     {
-        return $this->hasMany(DetallePedido::class, ['id_producto' => 'id_producto']);
+        return $this->hasMany(Detalle_Pedido::class, ['id_producto' => 'id_producto']);
     }
 
     /**

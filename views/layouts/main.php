@@ -40,13 +40,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Acerca de nosotros', 'url' => ['/site/about']],
-            //['label' => 'Usuarios', 'url' => ['/usuarios/index']],
-            //['label' => 'Categorias', 'url' => ['/categorias/index']],
-            //['label' => 'Envios', 'url' => ['/envios/index']],
-            //['label' => 'Pagos', 'url' => ['/pagos/index']],
-            //['label' => 'Pedidos', 'url' => ['/pedidos/index']],
-            // ['label' => 'Productos', 'url' => ['/productos/index']],
+            
             [
                 'label' => 'Gestionar Tienda online',
                 'items' => [ 
@@ -56,20 +50,26 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     [ 'label' => 'Envios', 'url' => ['/envios/index']],
                     [ 'label' => 'Pedidos', 'url' => ['/pedidos/index']],
                     [ 'label' => 'Pagos', 'url' => ['/pagos/index']],
+                    (!Yii::$app->user->isGuest && Yii::$app->user->identity->role != 'admin') ? '': [ 'label' => 'User', 'url' => ['/user/index']]
                 ],
             ],
+            
+            Yii::$app->user->isGuest ? '':['label'=>'Cambiar password', 'url'=>['/user/change-password']],
+
             Yii::$app->user->isGuest
                 ? ['label' => 'Iniciar sesión', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
                     . Html::beginForm(['/site/logout'])
                     . Html::submitButton(
-                        'Cerrar sesión (' . Yii::$app->user->identity->username . ')',
+                        'Cerrar sesión (' . Yii::$app->user->identity->apellido . ' ' . Yii::$app->user->identity->nombre . ') ' . Yii::$app->user->identity->role,
                         ['class' => 'nav-link btn btn-link logout']
                     )
                     . Html::endForm()
                     . '</li>'
         ]
+        
     ]);
+    
     NavBar::end();
     ?>
 </header>
@@ -80,6 +80,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
         <?php endif ?>
         <?= Alert::widget() ?>
+        
         <?= $content ?>
     </div>
 </main>
